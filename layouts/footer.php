@@ -90,7 +90,7 @@
                     <div class="col-md-6">
                         <div class="payment-img f-right">
                             <a href="#">
-                                <img alt="" src="assets/img/icon-img/payment.png">
+                                <img alt="" src="<?= $imagesPath ?>icon-img/payment.png">
                             </a>
                         </div>
                     </div>

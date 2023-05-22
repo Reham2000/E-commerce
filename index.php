@@ -2,37 +2,37 @@
 
 use App\Database\Models\Brand;
 use App\Database\Models\Product;
+use App\Database\Models\Product_review;
 
     $title = "Home";
     include "layouts/header.php";
     include "layouts/navbar.php";
     
-    $productOpject = new Product;
-    $brandObject = new Brand;
-$brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
+    $product = new Product;
+    $brand = new Brand;
+    $product_review = new Product_review;
 
-
+    $brands = $brand->read()->fetch_all(MYSQLI_ASSOC);
+    $products_reviews = $product_review->read()->fetch_all(MYSQLI_ASSOC);
 ?>
 <!-- Slider Start -->
 <div class="slider-area">
     <div class="slider-active owl-dot-style owl-carousel">
-        <div class="single-slider ptb-240 bg-img" style="background-image:url(assets/img/slider/slider-1.jpg);">
+        <div class="single-slider ptb-240 bg-img" style="background-image:url(<?= $imagesPath ?>slider/slider1.jpg);">
             <div class="container">
                 <div class="slider-content slider-animated-1">
-                    <h1 class="animated">Want to stay <span class="theme-color">healthy</span></h1>
-                    <h1 class="animated">drink matcha.</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetu adipisicing elit sedeiu tempor inci ut labore et dolore
-                        magna aliqua.</p>
+                    <h1 class="animated text-capitalize">We have <span class="theme-color text-uppercase">best</span></h1>
+                    <h1 class="animated text-capitalize">products.</h1>
+                    <p>All you need you will find on our platform.</p>
                 </div>
             </div>
         </div>
-        <div class="single-slider ptb-240 bg-img" style="background-image:url(assets/img/slider/slider-1-1.jpg);">
+        <div class="single-slider ptb-240 bg-img" style="background-image:url(<?= $imagesPath ?>slider/slider2.jpg);">
             <div class="container">
                 <div class="slider-content slider-animated-1">
-                    <h1 class="animated">Want to stay <span class="theme-color">healthy</span></h1>
-                    <h1 class="animated">drink matcha.</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetu adipisicing elit sedeiu tempor inci ut labore et dolore
-                        magna aliqua.</p>
+                <h1 class="animated text-capitalize">We have <span class="theme-color text-uppercase">best</span></h1>
+                    <h1 class="animated text-capitalize">products.</h1>
+                    <p>All you need you will find on our platform.</p>
                 </div>
             </div>
         </div>
@@ -45,13 +45,13 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
     <div class="container">
         <div class="row">
             <?php
-                $latestProducts = $productOpject->getLatestProducts()->fetch_all(MYSQLI_ASSOC);
+                $latestProducts = $product->getLatestProducts()->fetch_all(MYSQLI_ASSOC);
                 foreach($latestProducts as $latestProduct){
                 ?>
             <div class="product-wrapper col-md-3 col-sm-6">
                 <div class="product-img">
                     <a href="product-details.php?id=<?= $latestProduct['id']  ?>">
-                        <img src="assets/img/product/<?= $latestProduct['image']  ?>"
+                        <img src="<?= $imagesPath ?>product/<?= $latestProduct['image']  ?>"
                             alt="<?= $latestProduct['name_en']?>">
                     </a>
                     <div class="product-action">
@@ -98,14 +98,14 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
     <div class="container">
         <div class="row">
             <?php
-                $bestSellerProducts = $productOpject->getBestSellerProduct()->fetch_all(MYSQLI_ASSOC);
+                $bestSellerProducts = $product->getBestSellerProduct()->fetch_all(MYSQLI_ASSOC);
 
                 foreach($bestSellerProducts as $bestSellerProduct){
                 ?>
             <div class="product-wrapper col-md-3 col-sm-6">
                 <div class="product-img">
                     <a href="product-details.php?id=<?= $bestSellerProduct['id'] ?>">
-                        <img alt="" src="assets/img/product/<?= $bestSellerProduct['image'] ?>">
+                        <img alt="<?= $bestSellerProduct['image'] ?>" src="<?= $imagesPath ?>product/<?= $bestSellerProduct['image'] ?>">
                     </a>
                     <div class="product-action">
                         <a class="action-wishlist" href="#" title="Wishlist">
@@ -152,7 +152,7 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
                 <div class="col-lg-6 col-md-6">
                     <div class="single-banner img-zoom mb-30">
                         <a href="#">
-                            <img src="assets/img/banner/banner-1.png" alt="">
+                            <img src="<?= $imagesPath ?>banner/banner-1.png" alt="banner">
                         </a>
                         <div class="banner-content">
                             <h4>-50% Sale</h4>
@@ -163,7 +163,7 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
                 <div class="col-lg-6 col-md-6">
                     <div class="single-banner img-zoom mb-30">
                         <a href="#">
-                            <img src="assets/img/banner/banner-2.png" alt="">
+                            <img src="<?= $imagesPath ?>banner/banner-2.png" alt="banner">
                         </a>
                         <div class="banner-content">
                             <h4>-20% Sale</h4>
@@ -191,7 +191,7 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
                             <div class="product-img">
                                 <a href="shop.php?brand=<?= $brand['id'] ?>">
                                     <img alt="<?= $brand['name_en'] ?>"
-                                        src="assets/img/brand-logo/<?= $brand['image'] ?>">
+                                        src="<?= $imagesPath ?>brand-logo/<?= $brand['image'] ?>">
                                 </a>
                             </div>
                         </div>
@@ -208,33 +208,30 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
         <div class="row">
             <div class="col-lg-12 col-md-12 col-12">
                 <div class="testimonial-active owl-carousel">
+                    <?php 
+                    foreach($products_reviews as $productData){
+                    ?>
                     <div class="single-testimonial text-center">
                         <div class="testimonial-img">
-                            <img alt="" src="assets/img/icon-img/testi.png">
+                            <img alt="" class="w-25" src="<?= $productImagesPath . $productData['image'] ?>">
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut
-                            labore</p>
-                        <h4>Gregory Perkins</h4>
-                        <h5>Customer</h5>
+                        <p><?= $productData['comment'] ?></p>
+                        <p><?php 
+                        for($i = 1;$i <= intval($productData['rate_avg']) ;$i++){
+                            echo "<i class='ion-star theme-color'></i>";
+                        }
+                        if(intval($productData['rate_avg']) <= 5){
+                            for($i = 1 ;$i <= (5 - intval($productData['rate_avg'])) ;$i++){
+                                echo "<i class='ion-star text-muted'></i>";
+
+                            }
+                        }
+                        ?></p>
+
+                        <h4><?= $productData['name'] ?></h4>
+                        <h5><?= explode(' ',$productData['created_at'])[0] ?></h5>
                     </div>
-                    <div class="single-testimonial text-center">
-                        <div class="testimonial-img">
-                            <img alt="" src="assets/img/icon-img/testi.png">
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut
-                            labore</p>
-                        <h4>Khabuli Teop</h4>
-                        <h5>Marketing</h5>
-                    </div>
-                    <div class="single-testimonial text-center">
-                        <div class="testimonial-img">
-                            <img alt="" src="assets/img/icon-img/testi.png">
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut
-                            labore </p>
-                        <h4>Lotan Jopon</h4>
-                        <h5>Admin</h5>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -255,7 +252,7 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
             <div class="col-lg-4 col-md-6">
                 <div class="blog-single mb-30">
                     <div class="blog-thumb">
-                        <a href="#"><img src="assets/img/blog/blog-single-1.jpg" alt="" /></a>
+                        <a href="#"><img src="<?= $imagesPath ?>blog/blog-single-1.jpg" alt="" /></a>
                     </div>
                     <div class="blog-content pt-25">
                         <span class="blog-date">14 Sep</span>
@@ -269,7 +266,7 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
             <div class="col-lg-4 col-md-6">
                 <div class="blog-single mb-30">
                     <div class="blog-thumb">
-                        <a href="#"><img src="assets/img/blog/blog-single-2.jpg" alt="" /></a>
+                        <a href="#"><img src="<?= $imagesPath ?>blog/blog-single-2.jpg" alt="" /></a>
                     </div>
                     <div class="blog-content pt-25">
                         <span class="blog-date">20 Dec</span>
@@ -283,7 +280,7 @@ $brands = $brandObject->read()->fetch_all(MYSQLI_ASSOC);
             <div class="col-lg-4 col-md-6">
                 <div class="blog-single mb-30">
                     <div class="blog-thumb">
-                        <a href="#"><img src="assets/img/blog/blog-single-3.jpg" alt="" /></a>
+                        <a href="#"><img src="<?= $imagesPath ?>blog/blog-single-3.jpg" alt="" /></a>
                     </div>
                     <div class="blog-content pt-25">
                         <span class="blog-date">18 Aug</span>

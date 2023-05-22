@@ -6,6 +6,7 @@ ob_start();
 session_start();
 
 include "vendor/autoload.php"; 
+include "init.php";
 
 if(isset($_COOKIE['user'])){
     $user = new User;
@@ -26,22 +27,22 @@ if(isset($_COOKIE['user'])){
     <meta name="robots" content="noindex, follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= $imagesPath ?>favicon.png">
 
     <!-- all css here -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/chosen.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/ionicons.min.css">
-    <link rel="stylesheet" href="assets/css/jquery-ui.css">
-    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="<?= $cssPath ?>bootstrap.min.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>animate.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>owl.carousel.min.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>slick.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>chosen.min.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>font-awesome.min.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>themify-icons.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>ionicons.min.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>jquery-ui.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>meanmenu.min.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>style.css">
+    <link rel="stylesheet" href="<?= $cssPath ?>responsive.css">
+    <script src="<?= $jsPath ?>vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>

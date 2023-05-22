@@ -60,12 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $imageService->setFile($_FILES['image'])
                 ->size(1024 * 1024)->extension(['png', 'jpg', 'jpeg']);
             if (empty($imageService->getErrors())) {
-                $imageService->upload('assets/img/users/');
+                $imageService->upload('<?= $userImagesPath ?>');
                 $user = new User;
                 $user->setEmail($_SESSION['user']->email)->setImage($imageService->getFileName());
                 if ($user->updateImage()) {
                     if ($_SESSION['user']->image != 'default.jpg') {
-                        $imageService->delete('assets/img/users/' . $_SESSION['user']->image);
+                        $imageService->delete('<?= $userImagesPath ?>' . $_SESSION['user']->image);
                     }
                     $_SESSION['user']->image = $imageService->getFileName();
                     $successfullUpload = "<div class='alert alert-success text-center'> Profile Picture Uploaded Successfully </div>";
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                         }
                                                         ?>
                                                         <label for="file">
-                                                            <img src="assets/img/users/<?= $image ?>" id="image" class="w-100 rounded-circle" style="cursor:pointer;" alt="">
+                                                            <img src="<?= $userImagesPath ?><?= $image ?>" id="image" class="w-100 rounded-circle" style="cursor:pointer;" alt="">
                                                         </label>
                                                         <form action="" method="post" enctype="multipart/form-data">
                                                             <input type="file" name="image" class="d-none" id="file" onchange="loadFile(event)">

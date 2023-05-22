@@ -6,35 +6,41 @@ $title = "Product Details";
 include "layouts/header.php";
 include "layouts/navbar.php";
 include "layouts/breadcrumb.php";
-$_404 ="header('location:layouts/errors/404.php')";
+$_404 = "header('location:layouts/errors/404.php')";
 
 $productOpject = new Product;
-if($_GET){
-    if(isset($_GET['id'])){
-        if(is_numeric($_GET['id'])){ 
+if ($_GET) {
+    if (isset($_GET['id'])) {
+        if (is_numeric($_GET['id'])) {
             $productRes = $productOpject->setId($_GET['id'])->getProductReview();
 
-            if($productRes->num_rows == 1){
+            if ($productRes->num_rows == 1) {
                 $product_rev = $productRes->fetch_object();
                 // print_r($product_rev);die;
 
-            }else{
-                 $_404;
+            } else {
+                $_404;
             }
             $productResult = $productOpject->setId($_GET['id'])->getProduct();
-            if($productResult->num_rows == 1){
+            if ($productResult->num_rows == 1) {
                 $product = $productResult->fetch_assoc();
                 // print_r($product);die;
 
-            }else{
-                 $_404;
+            } else {
+                $_404;
             }
-        }}} 
-
-if(isset($_POST['rating']) && isset($_POST['comment'])){
-    $result = $productOpject->setUser_id($_SESSION['user']->id)->setId($_GET['id'])->setRate($_POST['rating'])->setComment($_POST['comment'])->addReview();
-    
+        }
+        if(isset($_SESSION['user'])){
+            if (isset($_POST['rating']) && isset($_POST['comment'])) {
+                $result = $productOpject->setUser_id($_SESSION['user']->id)->setId($_GET['id'])->setRate($_POST['rating'])->setComment($_POST['comment'])->addReview();
+            }
+        }else{
+            header("location:login.php");die;
+        }
+    }
 }
+
+
 
 ?>
 <style>
@@ -73,7 +79,7 @@ if(isset($_POST['rating']) && isset($_POST['comment'])){
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-img">
-                    <img class="zoompro" src="assets/img/product/<?= $product['image'] ?>" data-zoom-image="assets/img/product/<?= $product['image'] ?>" alt="zoom" />
+                    <img class="zoompro" src="<?= $imagesPath ?>product/<?= $product['image'] ?>" data-zoom-image="<?= $imagesPath ?>product/<?= $product['image'] ?>" alt="zoom" />
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
@@ -81,16 +87,16 @@ if(isset($_POST['rating']) && isset($_POST['comment'])){
                     <h4><?= $product['name_en'] ?></h4>
                     <div class="rating-review">
                         <div class="pro-dec-rating">
-                            <?php for($i=1;$i<= $product_rev->rate_avg;$i++){ ?>
-                            <i class="ion-android-star-outline theme-star"></i>
+                            <?php for ($i = 1; $i <= $product_rev->rate_avg; $i++) { ?>
+                                <i class="ion-android-star-outline theme-star"></i>
                             <?php } ?>
-                            <?php for($i=1;$i<= 5 - $product_rev->rate_avg;$i++){ ?>
-                            <i class="ion-android-star-outline"></i>
+                            <?php for ($i = 1; $i <= 5 - $product_rev->rate_avg; $i++) { ?>
+                                <i class="ion-android-star-outline"></i>
                             <?php } ?>
                         </div>
                         <div class="pro-dec-review">
                             <ul>
-                                <li><?=  $product_rev ->rate_count ?> Reviews </li>
+                                <li><?= $product_rev->rate_count ?> Reviews </li>
                                 <li> Add Your Reviews</li>
                             </ul>
                         </div>
@@ -130,9 +136,12 @@ if(isset($_POST['rating']) && isset($_POST['comment'])){
                     <div class="pro-dec-categories">
                         <ul>
                             <li class="categories-title">Categories:</li>
-                            <li><a href="shop.php?category=<?= $product['category_id'] ?>"><?= $product['category_name'] ?>,</a></li>
-                            <li><a href="shop.php?subcategory=<?= $product['subcategory_id'] ?>"><?= $product['subcategory_name'] ?>,</a></li>
-                            <li><a href="shop.php?brand=<?= $product['brand_id'] ?>"><?= $product['brand_name'] ?>,</a></li>
+                            <li><a href="shop.php?category=<?= $product['category_id'] ?>"><?= $product['category_name'] ?>,</a>
+                            </li>
+                            <li><a href="shop.php?subcategory=<?= $product['subcategory_id'] ?>"><?= $product['subcategory_name'] ?>,</a>
+                            </li>
+                            <li><a href="shop.php?brand=<?= $product['brand_id'] ?>"><?= $product['brand_name'] ?>,</a>
+                            </li>
 
                         </ul>
                     </div>
@@ -141,7 +150,8 @@ if(isset($_POST['rating']) && isset($_POST['comment'])){
                         <ul>
                             <li><a class="tweet" href="#"><i class="ion-social-twitter"></i> Tweet</a></li>
                             <li><a class="share" href="#"><i class="ion-social-facebook"></i> Share</a></li>
-                            <li><a class="google" href="#"><i class="ion-social-googleplus-outline"></i> Google+</a></li>
+                            <li><a class="google" href="#"><i class="ion-social-googleplus-outline"></i> Google+</a>
+                            </li>
                             <li><a class="pinterest" href="#"><i class="ion-social-pinterest"></i> Pinterest</a></li>
                         </ul>
                     </div>
@@ -171,9 +181,12 @@ if(isset($_POST['rating']) && isset($_POST['comment'])){
                     <div class="product-anotherinfo-wrapper">
                         <ul>
                             <li class="categories-title">Categories:</li>
-                            <li><a href="shop.php?category=<?= $product['category_id'] ?>"><?= $product['category_name'] ?>,</a></li>
-                            <li><a href="shop.php?subcategory=<?= $product['subcategory_id'] ?>"><?= $product['subcategory_name'] ?>,</a></li>
-                            <li><a href="shop.php?brand=<?= $product['brand_id'] ?>"><?= $product['brand_name'] ?>,</a></li>
+                            <li><a href="shop.php?category=<?= $product['category_id'] ?>"><?= $product['category_name'] ?>,</a>
+                            </li>
+                            <li><a href="shop.php?subcategory=<?= $product['subcategory_id'] ?>"><?= $product['subcategory_name'] ?>,</a>
+                            </li>
+                            <li><a href="shop.php?brand=<?= $product['brand_id'] ?>"><?= $product['brand_name'] ?>,</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

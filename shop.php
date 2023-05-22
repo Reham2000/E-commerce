@@ -119,7 +119,7 @@ if ($_GET) {
                     <div class="product-wrapper">
                       <div class="product-img">
                         <a href="product-details.php?id=<?= $product['id'] ?>">
-                          <img alt="<?= $product['name_en'] ?>" src="assets/img/product/<?= $product['image']?>" />
+                          <img alt="<?= $product['name_en'] ?>" src="<?= $imagesPath ?>product/<?= $product['image']?>" />
                         </a>
                         <div class="product-action">
                           <a class="action-wishlist" href="#" title="Wishlist">

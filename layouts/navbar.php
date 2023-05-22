@@ -16,7 +16,7 @@ $subcategory = new Subcategory;
                 <div class="col-lg-3 col-md-4 col-6">
                     <div class="logo">
                         <a href="index.php">
-                            <img alt="" src="assets/img/logo/logo.png">
+                            <img alt="" src="<?= $imagesPath ?>logo/logo.png">
                         </a>
                     </div>
                 </div>
@@ -88,7 +88,7 @@ $subcategory = new Subcategory;
                                 <ul>
                                     <li class="single-shopping-cart">
                                         <div class="shopping-cart-img">
-                                            <a href="#"><img alt="" src="assets/img/cart/cart-1.jpg"></a>
+                                            <a href="#"><img alt="" src="<?= $imagesPath ?>cart/cart-1.jpg"></a>
                                         </div>
                                         <div class="shopping-cart-title">
                                             <h4><a href="#">Phantom Remote </a></h4>
@@ -101,7 +101,7 @@ $subcategory = new Subcategory;
                                     </li>
                                     <li class="single-shopping-cart">
                                         <div class="shopping-cart-img">
-                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.jpg"></a>
+                                            <a href="#"><img alt="" src="<?= $imagesPath ?>cart/cart-2.jpg"></a>
                                         </div>
                                         <div class="shopping-cart-title">
                                             <h4><a href="#">Phantom Remote</a></h4>

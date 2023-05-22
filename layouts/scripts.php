@@ -1,13 +1,13 @@
     <!-- all js here -->
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <script src="assets/js/ajax-mail.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="<?= $jsPath ?>vendor/jquery-1.12.0.min.js"></script>
+    <script src="<?= $jsPath ?>popper.js"></script>
+    <script src="<?= $jsPath ?>bootstrap.min.js"></script>
+    <script src="<?= $jsPath ?>imagesloaded.pkgd.min.js"></script>
+    <script src="<?= $jsPath ?>isotope.pkgd.min.js"></script>
+    <script src="<?= $jsPath ?>ajax-mail.js"></script>
+    <script src="<?= $jsPath ?>owl.carousel.min.js"></script>
+    <script src="<?= $jsPath ?>plugins.js"></script>
+    <script src="<?= $jsPath ?>main.js"></script>
 </body>
 
 </html>
